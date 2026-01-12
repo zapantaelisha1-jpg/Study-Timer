@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawaii School Timer - Study Time!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container timer-container">
+        <header class="timer-header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="user-details">
+                    <h2>Hello, <span id="usernameDisplay">Student</span>!</h2>
+                    <p>Ready for a productive study session? <span class="cute-emoji-small">🌸✨</span></p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button class="btn-icon" id="photoBtn" title="Upload Photo">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <button class="btn-icon" id="themeBtn" title="Themes">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="btn-icon" id="profileBtn" title="Profile">
+                    <i class="fas fa-user-cog"></i>
+                </button>
+                <button class="btn-icon" id="settingsBtn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="btn-icon" id="logoutBtn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+        
+        <main class="timer-main">
+            <div class="timer-card">
+                <div class="timer-display">
+                    <div class="time-circle">
+                        <div class="time-text">
+                            <span id="minutes">25</span>:<span id="seconds">00</span>
+                        </div>
+                        <div class="time-label">STUDY TIME</div>
+                        <svg class="progress-ring" width="300" height="300">
+                            <circle class="progress-ring-circle" stroke-width="12" fill="transparent" r="138" cx="150" cy="150"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn-control" id="startBtn">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="btn-control" id="pauseBtn" disabled>
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="btn-control" id="resetBtn">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="timer-presets">
+                    <h3><i class="fas fa-hourglass-half"></i> Quick Presets</h3>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-minutes="25">25 min Study</button>
+                        <button class="preset-btn" data-minutes="5">5 min Break</button>
+                        <button class="preset-btn" data-minutes="15">15 min Review</button>
+                        <button class="preset-btn" data-minutes="45">45 min Session</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="side-panel">
+                <div class="panel-card">
+                    <h3><i class="fas fa-tasks"></i> Today's Tasks</h3>
+                    <div class="tasks-list">
+                        <div class="task-item">
+                            <div class="task-content">
+                                <input type="checkbox" id="task-1">
+                                <label for="task-1">Math homework</label>
+                            </div>
+                            <div class="task-actions">
+                                <button class="task-btn edit-task" data-id="1" title="Edit task">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="task-btn delete-task" data-id="1" title="Delete task">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-content">
+                                <input type="checkbox" id="task-2">
+                                <label for="task-2">English essay</label>
+                            </div>
+                            <div class="task-actions">
+                                <button class="task-btn edit-task" data-id="2" title="Edit task">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="task-btn delete-task" data-id="2" title="Delete task">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-content">
+                                <input type="checkbox" id="task-3">
+                                <label for="task-3">Science project</label>
+                            </div>
+                            <div class="task-actions">
+                                <button class="task-btn edit-task" data-id="3" title="Edit task">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="task-btn delete-task" data-id="3" title="Delete task">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-content">
+                                <input type="checkbox" id="task-4">
+                                <label for="task-4">History reading</label>
+                            </div>
+                            <div class="task-actions">
+                                <button class="task-btn edit-task" data-id="4" title="Edit task">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="task-btn delete-task" data-id="4" title="Delete task">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-task">
+                        <input type="text" placeholder="Add new task..." id="newTaskInput">
+                        <button class="btn-small" id="addTaskBtn"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="panel-card">
+                    <h3><i class="fas fa-chart-line"></i> Study Stats</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="todayTime">0 min</div>
+                            <div class="stat-label">Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="weekTime">0 min</div>
+                            <div class="stat-label">This Week</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="sessionsCount">0</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="motivation-message">
+                        <i class="fas fa-star"></i> You're doing great! Keep it up!
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="timer-footer">
+            <div class="sound-controls">
+                <button class="btn-icon" id="soundToggle">
+                    <i class="fas fa-volume-up"></i> Sound On
+                </button>
+                <button class="btn-icon" id="alarmBtn">
+                    <i class="fas fa-bell"></i> Set Alarm
+                </button>
+            </div>
+            <div class="footer-emoji-large">🧸Made by: (miyukiss) Elia🌸</div>
+            <div class="timer-mode">
+                <span class="mode-label">Mode:</span>
+                <div class="mode-switch">
+                    <button class="mode-btn active" data-mode="study">Study</button>
+                    <button class="mode-btn" data-mode="break">Break</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+            <div class="modal-content">
+                <h3><i class="fas fa-cog"></i> Timer Settings</h3>
+                <div class="settings-group">
+                    <label for="studyTime">Study Duration (minutes)</label>
+                    <input type="range" id="studyTime" min="5" max="60" value="25">
+                    <span id="studyTimeValue">25</span>
+                </div>
+                <div class="settings-group">
+                    <label for="breakTime">Break Duration (minutes)</label>
+                    <input type="range" id="breakTime" min="1" max="15" value="5">
+                    <span id="breakTimeValue">5</span>
+                </div>
+                <div class="settings-group">
+                    <label for="alarmSound">Alarm Sound</label>
+                    <select id="alarmSound">
+                        <option value="bell">Bell</option>
+                        <option value="chime">Chime</option>
+                        <option value="melody">Melody</option>
+                    </select>
+                </div>
+                <button class="btn" id="saveSettings">Save Settings</button>
+                <button class="btn btn-secondary" id="closeSettings">Close</button>
+            </div>
+        </div>
+        
+        <!-- Profile Modal -->
+        <div class="modal" id="profileModal">
+            <div class="modal-content">
+                <h3><i class="fas fa-user-cog"></i> Customize Your Profile</h3>
+                
+                <div class="profile-preview">
+                    <div class="user-avatar-large" id="avatarPreview">
+                        <i class="fas fa-user-graduate" id="avatarIcon"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h4 id="previewUsername">Student</h4>
+                        <p id="previewStatus">Ready to study! ✨</p>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label for="profileUsername"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="profileUsername" placeholder="Enter your username">
+                </div>
+                
+                <div class="settings-group">
+                    <label for="userStatus"><i class="fas fa-comment"></i> Status Message</label>
+                    <input type="text" id="userStatus" placeholder="How are you feeling today?">
+                </div>
+                
+                <div class="settings-group">
+                    <label><i class="fas fa-palette"></i> Avatar Icon</label>
+                    <div class="avatar-options">
+                        <button class="avatar-option active" data-icon="fa-user-graduate">
+                            <i class="fas fa-user-graduate"></i>
+                        </button>
+                        <button class="avatar-option" data-icon="fa-cat">
+                            <i class="fas fa-cat"></i>
+                        </button>
+                        <button class="avatar-option" data-icon="fa-heart">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="avatar-option" data-icon="fa-star">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="avatar-option" data-icon="fa-moon">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="avatar-option" data-icon="fa-sun">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label><i class="fas fa-fill-drip"></i> Theme Color</label>
+                    <div class="color-options">
+                        <button class="color-option active" data-color="#ff85a2" style="background: #ff85a2;"></button>
+                        <button class="color-option" data-color="#85d7ff" style="background: #85d7ff;"></button>
+                        <button class="color-option" data-color="#ffcc66" style="background: #ffcc66;"></button>
+                        <button class="color-option" data-color="#9d7b9f" style="background: #9d7b9f;"></button>
+                        <button class="color-option" data-color="#99ff99" style="background: #99ff99;"></button>
+                        <button class="color-option" data-color="#ff9999" style="background: #ff9999;"></button>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="btn" id="saveProfile">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                    <button class="btn btn-secondary" id="closeProfile">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme Modal -->
+        <div class="modal" id="themeModal">
+            <div class="modal-content">
+                <h3><i class="fas fa-palette"></i> Choose Your Theme</h3>
+                
+                <div class="theme-preview">
+                    <div class="theme-display" id="themePreview">
+                        <div class="theme-header"></div>
+                        <div class="theme-timer"></div>
+                        <div class="theme-task"></div>
+                        <div class="theme-task"></div>
+                    </div>
+                    <div class="theme-info">
+                        <h4 id="themeName">Kawaii Pink</h4>
+                        <p id="themeDesc">Cute pastel pink theme 🌸</p>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label><i class="fas fa-adjust"></i> Mode</label>
+                    <div class="mode-toggle">
+                        <button class="mode-toggle-btn active" data-mode="light">
+                            <i class="fas fa-sun"></i> Light
+                        </button>
+                        <button class="mode-toggle-btn" data-mode="dark">
+                            <i class="fas fa-moon"></i> Dark
+                        </button>
+                        <button class="mode-toggle-btn" data-mode="auto">
+                            <i class="fas fa-sync-alt"></i> Auto
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <label><i class="fas fa-fill-drip"></i> Color Theme</label>
+                    <div class="color-theme-options">
+                        <button class="color-theme-option active" data-theme="pink" data-name="Kawaii Pink" data-desc="Cute pastel pink theme 🌸">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #ff85a2, #ffd6e7);"></div>
+                            <span>Pink</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="blue" data-name="Dreamy Blue" data-desc="Calm pastel blue theme 🌊">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #85d7ff, #b3e0ff);"></div>
+                            <span>Blue</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="yellow" data-name="Sunny Yellow" data-desc="Warm pastel yellow theme ☀️">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #ffcc66, #ffeb99);"></div>
+                            <span>Yellow</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="purple" data-name="Magical Purple" data-desc="Magical pastel purple theme ✨">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #9d7b9f, #d8bfd8);"></div>
+                            <span>Purple</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="green" data-name="Minty Green" data-desc="Fresh mint green theme 🍃">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #99ff99, #ccffcc);"></div>
+                            <span>Green</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="coral" data-name="Sweet Coral" data-desc="Sweet coral orange theme 🍑">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #ff9999, #ffcccc);"></div>
+                            <span>Coral</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-group dark-theme-section">
+                    <label><i class="fas fa-moon"></i> Dark Theme Colors</label>
+                    <div class="color-theme-options dark-themes">
+                        <button class="color-theme-option" data-theme="midnight" data-name="Midnight Blue" data-desc="Deep blue dark theme 🌙">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #0a192f, #172a45);"></div>
+                            <span>Midnight</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="charcoal" data-name="Charcoal Gray" data-desc="Sleek gray dark theme 🖤">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #1a1a2e, #2d3047);"></div>
+                            <span>Charcoal</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="forest" data-name="Forest Night" data-desc="Deep green dark theme 🌲">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #1b4332, #2d6a4f);"></div>
+                            <span>Forest</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="amethyst" data-name="Amethyst Dream" data-desc="Purple dark theme 💜">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #3d0066, #6a0dad);"></div>
+                            <span>Amethyst</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="crimson" data-name="Crimson Night" data-desc="Red dark theme ❤️">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #660000, #990000);"></div>
+                            <span>Crimson</span>
+                        </button>
+                        <button class="color-theme-option" data-theme="golden" data-name="Golden Hour" data-desc="Gold dark theme 🌅">
+                            <div class="theme-swatch" style="background: linear-gradient(135deg, #332100, #664400);"></div>
+                            <span>Golden</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="btn" id="saveTheme">
+                        <i class="fas fa-check-circle"></i> Apply Theme
+                    </button>
+                    <button class="btn btn-secondary" id="closeTheme">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Photo Upload Modal -->
+        <div class="modal" id="photoModal">
+            <div class="modal-content">
+                <h3><i class="fas fa-camera"></i> Upload Your Photo</h3>
+                
+                <div class="photo-preview-container">
+                    <div class="photo-preview" id="photoPreview">
+                        <i class="fas fa-user-circle default-avatar"></i>
+                        <img id="uploadedPhoto" alt="Your photo" style="display: none;">
+                    </div>
+                    <div class="photo-instructions">
+                        <p><i class="fas fa-info-circle"></i> Upload a cute photo for your profile!</p>
+                        <p class="small-text">Max size: 2MB • Formats: JPG, PNG, GIF</p>
+                    </div>
+                </div>
+                
+                <div class="photo-upload-area" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your photo here</p>
+                    <p class="small-text">or</p>
+                    <input type="file" id="photoUpload" accept="image/*" hidden>
+                    <label for="photoUpload" class="btn btn-upload">
+                        <i class="fas fa-folder-open"></i> Choose File
+                    </label>
+                </div>
+                
+                <div class="photo-actions">
+                    <div class="crop-options">
+                        <label>Crop Style:</label>
+                        <div class="crop-buttons">
+                            <button class="crop-btn active" data-crop="circle">Circle</button>
+                            <button class="crop-btn" data-crop="rounded">Rounded</button>
+                            <button class="crop-btn" data-crop="square">Square</button>
+                        </div>
+                    </div>
+                    
+                    <div class="photo-filters">
+                        <label>Add Filter:</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn" data-filter="none">None</button>
+                            <button class="filter-btn" data-filter="brighten">Brighten</button>
+                            <button class="filter-btn" data-filter="vintage">Vintage</button>
+                            <button class="filter-btn" data-filter="pastel">Pastel</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="btn" id="savePhoto">
+                        <i class="fas fa-save"></i> Save Photo
+                    </button>
+                    <button class="btn btn-secondary" id="removePhoto">
+                        <i class="fas fa-trash"></i> Remove Photo
+                    </button>
+                    <button class="btn btn-secondary" id="closePhoto">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cute Confirmation Modal -->
+        <div class="modal cute-modal" id="cuteConfirmModal">
+            <div class="modal-content cute-confirm-content">
+                <div class="confirm-emoji">🌸✨</div>
+                <h3 id="confirmTitle">Are you sure?</h3>
+                <p id="confirmMessage">This action cannot be undone!</p>
+                <div class="confirm-buttons">
+                    <button class="btn confirm-btn confirm-yes" id="confirmYes">
+                        <i class="fas fa-check"></i> Yes, please!
+                    </button>
+                    <button class="btn btn-secondary confirm-btn confirm-no" id="confirmNo">
+                        <i class="fas fa-times"></i> No, thanks!
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Time's Up Popup -->
+        <div class="modal cute-modal" id="timeUpModal">
+            <div class="modal-content timeup-content">
+                <div class="timeup-emoji">⏰✨🎉</div>
+                <h3>Time's Up!</h3>
+                <p id="timeUpMessage">Great job studying! Take a break now!</p>
+                
+                <div class="timeup-stats">
+                    <div class="timeup-stat">
+                        <i class="fas fa-brain"></i>
+                        <span>You focused for</span>
+                        <strong id="focusTime">25 minutes</strong>
+                    </div>
+                    <div class="timeup-stat">
+                        <i class="fas fa-star"></i>
+                        <span>Session streak</span>
+                        <strong id="sessionStreak">1 day</strong>
+                    </div>
+                </div>
+                
+                <div class="timeup-actions">
+                    <button class="btn timeup-btn" id="startBreakBtn">
+                        <i class="fas fa-coffee"></i> Start Break
+                    </button>
+                    <button class="btn timeup-btn" id="restartTimerBtn">
+                        <i class="fas fa-redo"></i> Study More
+                    </button>
+                    <button class="btn timeup-btn" id="closeTimeUpBtn">
+                        <i class="fas fa-check"></i> Done
+                    </button>
+                </div>
+                
+                <div class="celebration-effects"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio for alarm -->
+    <audio id="alarmSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-bell-notification-933.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Additional sounds -->
+    <audio id="bellSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-church-bell-571.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="chimeSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-chime-193.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="melodySound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Sound Settings Panel -->
+<div class="sound-modal-overlay" id="soundOverlay"></div>
+<div class="sound-controls-panel" id="soundPanel">
+    <div class="sound-panel-header">
+        <h3><i class="fas fa-music"></i> Sound Settings 🎵</h3>
+        <button class="close-sound-panel" id="closeSoundPanel">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="sound-option selected" data-sound="bell">
+        <div class="sound-option-header">
+            <div class="sound-name"><i class="fas fa-bell"></i> Classic Bell</div>
+            <div class="sound-status">✓ Selected</div>
+        </div>
+        <p class="sound-description">Traditional notification bell sound 🔔</p>
+        <div class="sound-preview">
+            <input type="range" class="volume-control" data-sound="bell" min="0" max="100" value="80">
+            <button class="preview-btn" data-sound="bell">
+                <i class="fas fa-play"></i> Preview
+            </button>
+        </div>
+    </div>
+    
+    <div class="sound-option" data-sound="chime">
+        <div class="sound-option-header">
+            <div class="sound-name"><i class="fas fa-magic"></i> Magic Chime</div>
+            <div class="sound-status"></div>
+        </div>
+        <p class="sound-description">Gentle magical chime sound ✨</p>
+        <div class="sound-preview">
+            <input type="range" class="volume-control" data-sound="chime" min="0" max="100" value="80">
+            <button class="preview-btn" data-sound="chime">
+                <i class="fas fa-play"></i> Preview
+            </button>
+        </div>
+    </div>
+    
+    <div class="sound-option" data-sound="melody">
+        <div class="sound-option-header">
+            <div class="sound-name"><i class="fas fa-star"></i> Happy Melody</div>
+            <div class="sound-status"></div>
+        </div>
+        <p class="sound-description">Upbeat celebration melody 🎶</p>
+        <div class="sound-preview">
+            <input type="range" class="volume-control" data-sound="melody" min="0" max="100" value="80">
+            <button class="preview-btn" data-sound="melody">
+                <i class="fas fa-play"></i> Preview
+            </button>
+        </div>
+    </div>
+    
+    <div class="sound-option" data-sound="nature">
+        <div class="sound-option-header">
+            <div class="sound-name"><i class="fas fa-tree"></i> Nature Sounds</div>
+            <div class="sound-status"></div>
+        </div>
+        <p class="sound-description">Calming forest and birds 🐦🌿</p>
+        <div class="sound-preview">
+            <input type="range" class="volume-control" data-sound="nature" min="0" max="100" value="80">
+            <button class="preview-btn" data-sound="nature">
+                <i class="fas fa-play"></i> Preview
+            </button>
+        </div>
+    </div>
+    
+    <div class="upload-sound-area" id="uploadSoundArea">
+        <div class="upload-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <div class="upload-text">Upload Your Own Sound 🎵</div>
+        <div class="upload-subtext">MP3, WAV, OGG (Max: 5MB)</div>
+        <input type="file" id="soundUploadInput" accept="audio/*" hidden>
+    </div>
+    
+    <div class="custom-sound-info" id="customSoundInfo">
+        <div class="sound-option-header">
+            <div class="sound-name" id="customSoundName"><i class="fas fa-headphones"></i> Custom Sound</div>
+            <div class="sound-status">✓ Selected</div>
+        </div>
+        <p class="sound-description" id="customSoundDesc">Your uploaded sound 🎧</p>
+        <div class="sound-preview">
+            <input type="range" class="volume-control" data-sound="custom" min="0" max="100" value="80">
+            <div class="sound-actions">
+                <button class="preview-btn" data-sound="custom">
+                    <i class="fas fa-play"></i> Preview
+                </button>
+                <button class="action-btn delete" id="deleteCustomSound">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section" style="margin-top: 25px; padding-top: 20px; border-top: 3px dashed var(--secondary-color, #e0e0e0);">
+        <h4><i class="fas fa-volume-up"></i> Test Alarm 🔊</h4>
+        <p style="color: var(--text-color-light, #666); margin-bottom: 15px;">Preview how your alarm will sound:</p>
+        <button class="preview-btn" id="testAlarmBtn" style="width: 100%; justify-content: center; padding: 15px; font-size: 1.1rem;">
+            <i class="fas fa-bell"></i> Test Alarm Sound Now!
+        </button>
+    </div>
+    
+    <div class="save-section" style="margin-top: 25px;">
+        <button class="preview-btn" id="saveSoundSettings" style="width: 100%; background: linear-gradient(135deg, #4CAF50, #66BB6A); justify-content: center; padding: 18px; font-size: 1.1rem;">
+            <i class="fas fa-save"></i> Save Sound Settings 💾
+        </button>
+    </div>
+</div>
+
+<!-- Make sure these audio elements exist in timer.html -->
+<audio id="bellSound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-bell-notification-933.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="chimeSound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-chime-193.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="melodySound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="natureSound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-1316.mp3" type="audio/mpeg">
+</audio>
+
+    <script src="timer.js"></script>
+</body>
+</html>
